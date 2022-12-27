@@ -22,10 +22,16 @@ public class DepositAccount extends Account {
     }
 
     @Override
-    public void withdraw(double amount) {
-        double newBalance;
-		newBalance = this.getBalance() - amount;
-		this.setBalance(newBalance);
+    public boolean withdraw(double amount) {
+        double total_balance;
+        if (amount <= this.getBalance()) {
+			total_balance = this.getBalance() - amount;
+			this.setBalance(total_balance);
+			System.out.println("YES");
+			return true;
+		} else {
+			return false;
+		}
     }
     
 }

@@ -1,11 +1,6 @@
-
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Account {
-    
-    private static Scanner scan = new Scanner(System.in);
 
     private Owner owner;
     private String type;
@@ -65,131 +60,41 @@ public abstract class Account {
     public void addTransaction(Transaction transaction){
         transactionHistory.add(transaction);
     }
-	
-	public abstract void addBalance(double amount);
-	public abstract void withdraw(double amount);
 
-    // Menu
-    public void accountMainMenu(){
-        Utility.clearScreen();
+    public void printTransactionHistory(){
 
-        String choice;
-        boolean choiceIsValid = false;
-        do{
-            System.out.println("What would you like to do?");
-            System.out.println("==========================");
-            System.out.println("1. Deposit");
-            System.out.println("2. Withdraw");
-            System.out.println("3. Transfer");
-            System.out.println("4. Log Out");
-            System.out.print("> ");
-            choice = scan.nextLine();
-            choiceIsValid = choice.equals("Deposit") || choice.equals("Withdraw") || choice.equals("Transfer") || choice.equals("Log Out");
-
-            if(choiceIsValid == false){
-                System.out.print("Invalid choice. Try again. ");
-                Utility.promptEnterKey();
-                Utility.clearScreen();
-            }
-        }while(choiceIsValid == false);
-
-        switch(choice){
-            case "Deposit":
-                depositMenu();
-                break;
-            case "Withdraw":
-                withdrawMenu();
-                break;
-            case "Transfer":
-                transferMenu();
-                break;
-            case "Log Out":
-                Main.currentUser.ownedAccountsMenu();
-                break;
+        // Print header
+        for(int j = 0; j < 49; j++){
+            System.out.print("=");
         }
-    }
+        System.out.println();
+        System.out.printf("|%-17s|%-17s|%-17s|%-17s|\n", "Transaction ID", "Transaction Type", "Recipient Acc No.", "Amount");
+        for(int j = 0; j < 49; j++){
+            System.out.print("=");
+        }
+        System.out.println();
 
-    public void depositMenu(){
-        Utility.clearScreen();
+        // Print accounts
+        for(int i = 0; i < getTransactionHistory().size(); i++){
 
-        double amountToDeposit;
-        System.out.print("Amount to deposit: Rp. ");
-        amountToDeposit = scan.nextDouble(); scan.nextLine();
-        addBalance(amountToDeposit);
-        
-        Utility.clearScreen();
-
-        System.out.println("Funds deposited successfully!");
-        System.out.println("Amount deposited: " + amountToDeposit);
-        System.out.println("Current Balance: " + getBalance());
-        Utility.promptEnterKey();
-        accountMainMenu();
-    }
-
-    public void withdrawMenu(){
-        Utility.clearScreen();
-
-        double amountToWithdraw;
-        do{
-            System.out.print("Amount to withdraw: Rp. ");
-            amountToWithdraw = scan.nextDouble(); scan.nextLine();
-
-            if(amountToWithdraw > getBalance()){
-                System.out.println("Not enough funds in your account. ");
-                Utility.promptEnterKey();
-                Utility.clearScreen();
+            if(!getTransactionHistory().get(i).getTransactionType().equals("Deposit")){
+                System.out.printf("|%-17s|%-17s|%-17s|- Rp %-13.2f|\n", getTransactionHistory().get(i).getTransactionID(), getTransactionHistory().get(i).getTransactionType(), getTransactionHistory().get(i).getDestinationAccountNumber(), getTransactionHistory().get(i).getAmount());
+                continue;
             }
-        }while(amountToWithdraw > getBalance());
-        withdraw(amountToWithdraw);
-        
-        Utility.clearScreen();
 
-        System.out.println("Funds withdrawn successfully!");
-        System.out.println("Amount withdrawn: " + amountToWithdraw);
-        System.out.println("Current Balance: " + getBalance());
-        Utility.promptEnterKey();
-        accountMainMenu();
+            System.out.printf("|%-17s|%-17s|%-17s| Rp %-13.2f|\n", getTransactionHistory().get(i).getTransactionID(), getTransactionHistory().get(i).getTransactionType(), getTransactionHistory().get(i).getDestinationAccountNumber(), getTransactionHistory().get(i).getAmount());
+        }
+        for(int j = 0; j < 49; j++){
+            System.out.print("=");
+        }
+        System.out.println();
     }
 
-    public void transferMenu(){
-        Utility.clearScreen();
-
-        String destinationAccountNumber;
-        int destinationAccountNumberIndex = -1;
-        do{
-            System.out.print("Destination Account Number: ");
-            destinationAccountNumber = scan.nextLine();
-            destinationAccountNumberIndex = Utility.accountNumberExists(destinationAccountNumber, Main.Bank);
-
-            if(destinationAccountNumberIndex == -1){
-                System.out.print("Account number does not exist. Please try again. ");
-                Utility.promptEnterKey();
-                Utility.clearScreen();
-            }
-        }while(destinationAccountNumberIndex == -1);
-
-        Utility.clearScreen();
-
-        double amountToTransfer;
-        do{
-            System.out.println("Destination Account Number: " + destinationAccountNumber);
-            System.out.print("Amount to deposit: Rp. ");
-            amountToTransfer = scan.nextDouble(); scan.nextLine();
-
-            if(amountToTransfer > getBalance()){
-                System.out.println("Not enough funds in your account. ");
-                Utility.promptEnterKey();
-                Utility.clearScreen();
-            }
-        }while(amountToTransfer > getBalance());
-        withdraw(amountToTransfer);
-        Main.Bank.get(destinationAccountNumberIndex).addBalance(amountToTransfer);
-        
-        Utility.clearScreen();
-
-        System.out.println("Funds transferred successfully!");
-        System.out.println("Current Balance: " + getBalance());
-        Utility.promptEnterKey();
-        accountMainMenu();
+    public ArrayList<Transaction> getTransactionHistory() {
+        return transactionHistory;
     }
+
+	public abstract void addBalance(double amount);
+	public abstract boolean withdraw(double amount);
+
 }

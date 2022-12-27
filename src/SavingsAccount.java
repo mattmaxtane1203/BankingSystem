@@ -22,10 +22,16 @@ public class SavingsAccount extends Account {
     }
 
     @Override
-    public void withdraw(double amount) {
+    public boolean withdraw(double amount) {
         double newBalance;
-		newBalance = this.getBalance() - amount;
-		this.setBalance(newBalance);
+		if (amount <= this.getBalance()) {
+			newBalance = this.getBalance() - amount;
+			this.setBalance(newBalance);
+			System.out.println("YES");
+			return true;
+		} else {
+			return false;
+		}
     }
     
 }

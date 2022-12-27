@@ -1,5 +1,3 @@
-
-
 import java.time.LocalDateTime;
 
 public class Transaction {
@@ -12,7 +10,7 @@ public class Transaction {
     private double currentBalance;
 
     public Transaction(String transactionID, LocalDateTime transactionDateTime, String transactionType,
-            String sourceAccountNumber, String destinationAccountNumber, double amount, double currentBalance) {
+        String sourceAccountNumber, String destinationAccountNumber, double amount, double currentBalance) {
         this.transactionID = transactionID;
         this.transactionDateTime = transactionDateTime;
         this.transactionType = transactionType;
@@ -77,6 +75,4 @@ public class Transaction {
     public void setCurrentBalance(double currentBalance) {
         this.currentBalance = currentBalance;
     }
-
-    
 }
