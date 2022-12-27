@@ -15,22 +15,17 @@ public class SavingsAccount extends Account {
     }
 
     @Override
-    void addBalance(double amount) {
+    public void addBalance(double amount) {
         double newBalance;
         newBalance = this.getBalance() + amount;
         this.setBalance(newBalance);
     }
 
     @Override
-    boolean withdraw(double amount) {
+    public void withdraw(double amount) {
         double newBalance;
-		if (amount <= this.getBalance()) {
-			newBalance = this.getBalance() - amount;
-			this.setBalance(newBalance);
-			return true;
-		} else {
-			return false;
-		}
+		newBalance = this.getBalance() - amount;
+		this.setBalance(newBalance);
     }
     
 }

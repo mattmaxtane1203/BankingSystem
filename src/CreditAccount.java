@@ -16,21 +16,16 @@ public class CreditAccount extends Account {
 	}
 
     @Override
-    void addBalance(double amount) {
+    public void addBalance(double amount) {
         double newBalance;
 		newBalance = this.getBalance() + amount;
 		this.setBalance(newBalance);
     }
 
     @Override
-    boolean withdraw(double amount) {
-        double total_balance;
-		if (amount + calculateInterest(amount) <= this.getBalance()) {
-			total_balance = this.getBalance() - (amount + calculateInterest(amount));
-			this.setBalance(total_balance);
-			return true;
-		} else {
-			return false;
-		}
+    public void withdraw(double amount) {
+        double newBalance;
+		newBalance = this.getBalance() - amount;
+		this.setBalance(newBalance);
     }
 }

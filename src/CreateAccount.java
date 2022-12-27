@@ -38,8 +38,7 @@ public class CreateAccount {
             System.out.println("Account Type: " + accountTypeChoice);
             System.out.print("Input PIN [numeric, 6 numbers]: ");
             tempPIN = scan.nextLine();
-
-            // TODO: Add validation for PIN
+            
             passwordIsValid = Utility.validatePIN(tempPIN);
             
             if(passwordIsValid == false){
