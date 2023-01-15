@@ -3,7 +3,7 @@
 public class SavingsAccount extends Account {
     private double interestRate;
 
-    public SavingsAccount(Owner owner, String accountNumber, String username, String PIN) {
+    public SavingsAccount(Owner owner, String accountNumber, String PIN) {
         super(owner, "Savings", accountNumber, PIN, 0);
         this.interestRate = 0.025;
     }

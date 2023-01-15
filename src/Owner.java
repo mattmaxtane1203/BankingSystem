@@ -95,6 +95,10 @@ public class Owner {
         getOwnedAccounts().add(account);
     }
 
+    public void deleteAccount(Account currentAccount){
+        ownedAccounts.remove(currentAccount);
+    }
+
 	public ArrayList<Account> getOwnedAccounts() {
 		return ownedAccounts;
 	}

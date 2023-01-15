@@ -3,8 +3,8 @@
 public class DepositAccount extends Account {
     private double interestRate;
 
-    public DepositAccount(Owner owner, String accountNumber, String PIN, double balance) {
-        super(owner, "Deposit", accountNumber, PIN, balance);
+    public DepositAccount(Owner owner, String accountNumber, String PIN) {
+        super(owner, "Deposit", accountNumber, PIN, 0);
         this.interestRate = 0.05;
     }
 

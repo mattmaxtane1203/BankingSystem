@@ -2,8 +2,6 @@
 // TODO: Fix date and time format for birth date of users
 // TODO: Fix table positioning when printing transaction history
 // TODO: Work on Admin
-// TODO: Work on writing all data to files
-// TODO: Work on Multithreading to display date and time
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -62,22 +60,23 @@ public class Main {
 
 		// Check if there are bank accounts in the list
 		if(Main.accountOwners.isEmpty()){
-			String confirmation = "-";
-			boolean confirmationIsValid = false;
+            int choice = -1;
+            boolean choiceIsValid = false;
 			do{
-				System.out.println("No accounts exist in this bank. Would you like to create an account? [Yes / No]");
+				System.out.println("No accounts exist in this bank. Would you like to create an account? [1 for YES / 0 for NO]");
 				System.out.print("> ");
-				confirmation = scan.nextLine();
-				confirmationIsValid = confirmation.equals("Yes") || confirmation.equals("No");
+				choice = scan.nextInt();
+                scan.nextLine();
+                choiceIsValid = choice == 1 || choice == 0;
 
-				if(confirmationIsValid == false){
-					System.out.print("Please type either [Yes] or [No]. ");
+				if(!choiceIsValid){
+					System.out.print("Please type either 1 for YES or 0 for NO. ");
 					promptEnterKey();
 					clearScreen();
 				}
-			}while(confirmationIsValid == false);
+			}while(choiceIsValid == false);
 
-			if(confirmation.equals("Yes")){
+			if(choice == 1){
 				CreateOwnerAccount();
 			}
 
@@ -91,9 +90,14 @@ public class Main {
 			System.out.println("=====");
 			System.out.println("Login");
 			System.out.println("=====");
+            System.out.println("Type 0 to go back to main menu.");
 			System.out.print("Username: ");
 			username = scan.nextLine();
 			accountIndex = usernameExists(username);
+
+            if(username.equals("0")){
+				new Main();
+			}
 
 			if(accountIndex == -1){
 				System.out.print("Username does not exist. Try again. ");
@@ -140,8 +144,16 @@ public class Main {
         String tempSurname = "";
         boolean namesAreValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.print("Input first and last name: ");
             String tempName = scan.nextLine();
+
+            if(tempName.equals("0")){
+				new Main();
+			}
 
             String[] names = tempName.split("\\s");
             tempFirstName = names[0];
@@ -155,9 +167,18 @@ public class Main {
         String tempUsername = "";
         boolean usernameIsValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Name: " + tempFirstName + " " + tempSurname);
             System.out.print("Input Username [must be unique]: ");
             tempUsername = scan.nextLine();
+
+            if(tempUsername.equals("0")){
+				new Main();
+			}
+            
             usernameIsValid = validateUsername(tempUsername);
             if(usernameIsValid == false){
                 System.out.print("Username entered already exists. Try again. ");
@@ -172,10 +193,18 @@ public class Main {
         String tempBirthDateString;
         boolean birthDateIsValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Name: " + tempFirstName + " " + tempSurname);
             System.out.println("Username: " + tempUsername);
             System.out.print("Input Birth Date [dd/MM/yyyy]: ");
             tempBirthDateString = scan.nextLine();
+
+            if(tempBirthDate.equals("0")){
+				new Main();
+			}
 
             try {
                 tempBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse(tempBirthDateString);
@@ -192,11 +221,20 @@ public class Main {
         String tempPhoneNumber = "";
         boolean phoneNumberIsValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Name: " + tempFirstName + " " + tempSurname);
             System.out.println("Username: " + tempUsername);
             System.out.println("Birth Date: " + tempBirthDate.toString());
             System.out.print("Input phone number [unique and starts with 08...]: ");
             tempPhoneNumber = scan.nextLine();
+
+            if(tempPhoneNumber.equals("0")){
+				new Main();
+			}
+
             phoneNumberIsValid = validatePhoneNumber(tempPhoneNumber);
 
             if(phoneNumberIsValid == false){
@@ -211,12 +249,21 @@ public class Main {
         String tempPassword = "";
         boolean passwordIsValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Name: " + tempFirstName + " " + tempSurname);
             System.out.println("Username: " + tempUsername);
             System.out.println("Birth Date: " + tempBirthDate.toString());
             System.out.println("Phone Number: " + tempPhoneNumber);
             System.out.println("Input Password [8 - 20 characters | No whitespaces | At least one special character | At least one uppercase and lowercase letter]: ");
             tempPassword = scan.nextLine();
+
+            if(tempPassword.equals("0")){
+				new Main();
+			}
+
             passwordIsValid = validatePassword(tempPassword);
             
             if(passwordIsValid == false){
@@ -231,6 +278,10 @@ public class Main {
         String tempEmail;
         boolean emailIsValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Name: " + tempFirstName + " " + tempSurname);
             System.out.println("Username: " + tempUsername);
             System.out.println("Birth Date: " + tempBirthDate.toString());
@@ -238,6 +289,11 @@ public class Main {
             System.out.println("Password: " + tempPassword);
             System.out.print("Input email [unique]: ");
             tempEmail = scan.nextLine();
+
+            if(tempEmail.equals("0")){
+				new Main();
+			}
+
             emailIsValid = validateEmail(tempEmail);
             System.out.println(emailIsValid);
 
@@ -253,6 +309,10 @@ public class Main {
         String tempAddress;
         boolean addressIsValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Name: " + tempFirstName + " " + tempSurname);
             System.out.println("Username: " + tempUsername);
             System.out.println("Birth Date: " + tempBirthDate.toString());
@@ -261,6 +321,11 @@ public class Main {
             System.out.println("Email: " + tempEmail);
             System.out.print("Input address: ");
             tempAddress = scan.nextLine();
+
+            if(tempAddress.equals("0")){
+				new Main();
+			}
+
             addressIsValid = validateAddress(tempAddress);
 
             if(addressIsValid == false){
@@ -272,9 +337,13 @@ public class Main {
 
         // Confirmation
         clearScreen();
-        String confirmation = "-";
-        boolean confirmationIsValid = false;
+        int choice = -1;
+        boolean choiceIsValid = false;
         do{
+            System.out.println("===================");
+            System.out.println("Create User Account");
+            System.out.println("===================");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Name: " + tempFirstName + " " + tempSurname);
             System.out.println("Username: " + tempUsername);
             System.out.println("Birth Date: " + tempBirthDate.toString());
@@ -282,19 +351,21 @@ public class Main {
             System.out.println("Password: " + tempPassword);
             System.out.println("Email: " + tempEmail);
             System.out.println("Address: " + tempAddress);
-            System.out.println("Are you sure you want to create a new account? [Yes / No]");
+            System.out.println("Are you sure you want to create a new account? [1 for YES / 0 for NO]");
             System.out.print("> ");
-            confirmation = scan.nextLine();
-            confirmationIsValid = confirmation.equals("Yes") || confirmation.equals("No");
+            choice = scan.nextInt();
+            scan.nextLine();
 
-            if(confirmationIsValid == false){
-                System.out.print("Please type either [Yes] or [No]. Try again.");
+            choiceIsValid = choice == 1 || choice == 0;
+
+            if(!choiceIsValid){
+                System.out.print("Please type either 1 for YES or 0 for NO. Try again.");
                 promptEnterKey();
                 clearScreen();
             }
-        }while(confirmationIsValid == false);
+        }while(choiceIsValid == false);
 
-        if(confirmation.equals("Yes")){
+        if(choice == 1){
             currentUser = new Owner(tempFirstName, tempSurname, tempUsername, tempBirthDate, tempPhoneNumber, tempPassword, tempEmail, tempAddress);
             accountOwners.add(currentUser);
             System.out.print("Account created! ");
@@ -307,15 +378,16 @@ public class Main {
 
 	public static void OwnerMainMenu() {
 		clearScreen();
-        String choice = "";
+        int choice;
         boolean choiceIsValid = false;
         do{
             System.out.println("Welcome " + currentUser.getFirstName() + "!");
             System.out.println("==========================");
             printAccountMenu();
             System.out.print("> ");
-			choice = scan.nextLine();
-            choiceIsValid = choice.equals("Open New Account") || choice.equals("View Accounts") || choice.equals("View Past Transactions") || choice.equals("Log Out");
+			choice = scan.nextInt();
+            scan.nextLine();
+            choiceIsValid = choice >= 1 || choice <= 4;
 
             if(choiceIsValid == false){
                 System.out.print("Invalid choice. Try again. ");
@@ -325,43 +397,251 @@ public class Main {
         }while(choiceIsValid == false);
 
         switch (choice) {
-            case "Open New Account":
+            case 1:
                 CreateAccount();
                 break;
-            case "View Accounts":
+            case 2:
                 ownedAccountsMenu();
                 break;
-            case "View Past Transactions":
+            case 3:
                 pastTransactionsMenuUser();
                 break;
-            case "Log Out":
+            case 4:
+                updateOwnerInfo();
+            case 5:
                 Main.currentUser = null;
                 new Main();
                 break;
         }
 	}
+
+    public static void updateOwnerInfo() {
+        clearScreen();
+        int choice;
+        boolean choiceIsValid = false;
+        System.out.println("================");
+        System.out.println("User Information");
+        System.out.println("================");
+        System.out.printf("Name: %s %s\n", currentUser.getFirstName(), currentUser.getSurname());
+        System.out.printf("Username: %s\n", currentUser.getUsername());
+        System.out.printf("Birth Date: %s\n", currentUser.getBirthDate());
+        System.out.printf("Phone Number: %s\n", currentUser.getPhoneNumber());
+        System.out.printf("Email: %s\n", currentUser.getEmail());
+        System.out.printf("Address: %s\n", currentUser.getAddress());
+        System.out.println();
+        do {
+            updateOwnerInfoMenu();
+            System.out.println("Choose information to update");
+            System.out.print("> ");
+            choice = scan.nextInt();
+            scan.nextLine();
+            choiceIsValid = choice >= 1 || choice <= 7;
+
+            if(choice == 0){
+                OwnerMainMenu();
+            }
+
+            if (choiceIsValid == false) {
+                System.out.print("Invalid choice. Try again. ");
+                promptEnterKey();
+                clearScreen();
+            }
+        } while(choiceIsValid == false);
+
+        switch(choice) {
+            case 1:
+                clearScreen();
+                String tempFirstName = "";
+                String tempSurname = "";
+                boolean namesAreValid = false;
+                do{
+                    clearScreen();
+                    System.out.println("[Type 0 to cancel]");
+                    System.out.print("Input new first and last name: ");
+                    String tempName = scan.nextLine();
+
+                    if(tempName.equals("0")){
+                        updateOwnerInfo();
+                    }
+
+                    String[] names = tempName.split("\\s");
+                    tempFirstName = names[0];
+                    tempSurname = names[1];
+
+                    namesAreValid = true;
+                } while(namesAreValid == false);
+                currentUser.setFirstName(tempFirstName);
+                currentUser.setSurname(tempSurname);
+                System.out.println("Name successfully changed.");
+                promptEnterKey();
+                OwnerMainMenu();
+                break;
+            case 2:
+                clearScreen();
+                Date tempBirthDate = new Date();
+                String tempBirthDateString;
+                boolean birthDateIsValid = false;
+                do{
+                    clearScreen();
+                    System.out.println("[Type 0 to cancel]");
+                    System.out.print("Input new Birth Date [dd/MM/yyyy]: ");
+                    tempBirthDateString = scan.nextLine();
+
+                    if(tempBirthDateString.equals("0")){
+                        updateOwnerInfo();
+                    }
+
+                    try {
+                        tempBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse(tempBirthDateString);
+                        birthDateIsValid = true;
+                    } catch (ParseException e) {
+                        System.err.print("Invalid date/date format");
+                        e.printStackTrace();
+                    }
+                } while(birthDateIsValid == false);
+                currentUser.setBirthDate(tempBirthDate);
+                System.out.println("Birth Date successfully changed.");
+                promptEnterKey();
+                OwnerMainMenu();
+                break;
+            case 3:
+                clearScreen();
+                String tempPhoneNumber = "";
+                boolean phoneNumberIsValid = false;
+                do{
+                    clearScreen();
+                    System.out.println("[Type 0 to cancel]");
+                    System.out.print("Input new phone number [unique and starts with 08...]: ");
+                    tempPhoneNumber = scan.nextLine();
+
+                    if(tempPhoneNumber.equals("0")){
+                        updateOwnerInfo();
+                    }
+
+                    phoneNumberIsValid = validatePhoneNumber(tempPhoneNumber);
+
+                    if(phoneNumberIsValid == false){
+                        System.out.print("An account with this phone number already exists or the phone number is in the wrong format. Try again. ");
+                        promptEnterKey();
+                        clearScreen();
+                    }
+                } while(phoneNumberIsValid == false);
+                currentUser.setPhoneNumber(tempPhoneNumber);
+                System.out.println("Phone number successfully changed.");
+                promptEnterKey();
+                OwnerMainMenu();
+                break;
+            case 4:
+                clearScreen();
+                String tempPassword = "";
+                boolean passwordIsValid = false;
+                do{
+                    clearScreen();
+                    System.out.println("[Type 0 to cancel]");
+                    System.out.println("Input new Password [8 - 20 characters | No whitespaces | At least one special character | At least one uppercase and lowercase letter]: ");
+                    tempPassword = scan.nextLine();
+
+                    if(tempPassword.equals("0")){
+                        updateOwnerInfo();
+                    }
+
+                    passwordIsValid = validatePassword(tempPassword);
+                    
+                    if(passwordIsValid == false){
+                        System.out.println("Password does not fit conditions. Try again. ");
+                        promptEnterKey();
+                        clearScreen();
+                    }
+                } while(passwordIsValid == false);
+                currentUser.setPassword(tempPassword);
+                System.out.println("Password successfully changed.");
+                promptEnterKey();
+                OwnerMainMenu();
+                break;
+            case 5:
+                System.out.println("Input new email: ");
+                clearScreen();
+                String tempEmail;
+                boolean emailIsValid = false;
+                do{
+                    clearScreen();
+                    System.out.println("[Type 0 to cancel]");
+                    System.out.print("Input new email [unique]: ");
+                    tempEmail = scan.nextLine();
+
+                    if(tempEmail.equals("0")){
+                        updateOwnerInfo();
+                    }
+
+                    emailIsValid = validateEmail(tempEmail);
+                    System.out.println(emailIsValid);
+
+                    if(emailIsValid == false){
+                        System.out.print("Email already exists or email is in the wrong format. Try again. ");
+                        promptEnterKey();
+                        clearScreen();
+                    }
+                } while(emailIsValid == false);
+                currentUser.setEmail(tempEmail);
+                System.out.println("Email successfully changed.");
+                promptEnterKey();
+                OwnerMainMenu();
+                break;
+            case 6:
+                System.out.println("Input new address: ");
+                clearScreen();
+                String tempAddress;
+                boolean addressIsValid = false;
+                do{
+                    clearScreen();
+                    System.out.println("[Type 0 to cancel]");
+                    System.out.print("Input new address: ");
+                    tempAddress = scan.nextLine();
+
+                    if(tempAddress.equals("0")){
+                        updateOwnerInfo();
+                    }
+
+                    addressIsValid = validateAddress(tempAddress);
+
+                    if(addressIsValid == false){
+                        System.out.print("Address is not in the correct format. Try again. ");
+                        promptEnterKey();
+                        clearScreen();
+                    }
+                } while(addressIsValid == false);
+                currentUser.setAddress(tempAddress);
+                System.out.println("Address successfully changed.");
+                promptEnterKey();
+                OwnerMainMenu();
+                break;
+            case 7:
+                OwnerMainMenu();
+                break;
+        }
+    }
 	
 	public static void ownedAccountsMenu(){
         clearScreen();
 
         // If the user does not have an account, ask if they want to create one
         if(currentUser.getOwnedAccounts().isEmpty()){
-            String confirmation = "";
+            int confirmation = -1;
             boolean confirmationIsValid = false;
             do{
                 System.out.println("You do not have a bank account with us yet! Would you like to make one? [Yes / No]");
                 System.out.print("> ");
-                confirmation = scan.nextLine();
-                confirmationIsValid = confirmation.equals("Yes") || confirmation.equals("No");
+                confirmation = scan.nextInt(); scan.nextLine();
+                confirmationIsValid = confirmation == 1 || confirmation == 0;
 
                 if(confirmationIsValid == false){
-                    System.out.print("Please type either [Yes] or [No]. Try again.");
+                    System.out.print("Please type either 1 for YES or 0 for NO.");
                     promptEnterKey();
                     clearScreen();
                 }
             }while(confirmationIsValid == false);
 
-            if(confirmation.equals("Yes")){
+            if(confirmation == 1){
                 CreateAccount();
             }
             
@@ -395,7 +675,7 @@ public class Main {
         do{
             currentUser.printOwnedAccounts();
             System.out.println("Account number to access: " + accountNumberToAccess);
-            System.out.print("PIN: ");
+            System.out.print("PIN [Input 0 to go back to menu]: ");
             PIN = scan.nextLine();
 
             if(PIN.equals("0")){
@@ -436,13 +716,14 @@ public class Main {
         printAccountTypes();
 
         // Ask user to input choice of account; Validate;
-        String accountTypeChoice = "";
+        int accountTypeChoice = -1;
         boolean choiceIsValid = false;
         do{
             System.out.println("|| Choices are case sensitive ||");
             System.out.print("> ");
-            accountTypeChoice = scan.nextLine();
-            choiceIsValid = accountTypeChoice.equals("Deposit Account") || accountTypeChoice.equals("Savings Account") || accountTypeChoice.equals("Credit Account");
+            accountTypeChoice = scan.nextInt();
+            scan.nextLine();
+            choiceIsValid = accountTypeChoice >= 1 && accountTypeChoice <= 3;
 
             if(choiceIsValid == false){
                 System.out.print("Invalid choice. Try again. ");
@@ -457,9 +738,18 @@ public class Main {
         String tempPIN = "";
         boolean passwordIsValid = false;
         do{
+            System.out.println("==============");
+            System.out.println("Create Account");
+            System.out.println("==============");
+            System.out.println("Type 0 to go back to main menu.");
             System.out.println("Account Type: " + accountTypeChoice);
             System.out.print("Input PIN [numeric, 6 numbers]: ");
             tempPIN = scan.nextLine();
+
+            if(tempPIN.equals("0")){
+                OwnerMainMenu();
+            }
+
             passwordIsValid = validatePIN(tempPIN);
             
             if(passwordIsValid == false){
@@ -491,36 +781,40 @@ public class Main {
 
         // Review information that was inputted
         clearScreen();
-        String confirmation = "-";
+        int confirmation = -1;
         boolean confirmationIsValid = false;
         do{
+            System.out.println("==============");
+            System.out.println("Create Account");
+            System.out.println("==============");
             System.out.println("Account Type: " + accountTypeChoice);
             System.out.println("Password: " + tempPIN);
             System.out.println("Account Number: " + tempAccountNumber);
-            System.out.println("Are you sure you want to create a new bank account? [Yes / No]");
+            System.out.println("Are you sure you want to create a new bank account? [1 for YES / 0 for NO]");
             System.out.print("> ");
-            confirmation = scan.nextLine();
-            confirmationIsValid = confirmation.equals("Yes") || confirmation.equals("No");
+            confirmation = scan.nextInt();
+            scan.nextLine();
+            confirmationIsValid = confirmation == 0 || confirmation == 1;
 
             if(confirmationIsValid == false){
-                System.out.print("Please type either [Yes] or [No]. ");
+                System.out.print("Please type either 1 for YES or 0 for NO. ");
                 promptEnterKey();
                 clearScreen();
             }
         }while(confirmationIsValid == false);
 
-        if(confirmation.equals("Yes")){
+        if(confirmation == 1){
             Account newAccount = null;
 
             switch(accountTypeChoice){
-                case "Deposit Account":
-                    newAccount = new DepositAccount(currentUser, tempAccountNumber, tempPIN, 0);
+                case 1:
+                    newAccount = new DepositAccount(currentUser, tempAccountNumber, tempPIN);
                     break;
-                case "Savings Account":
-                    newAccount = new SavingsAccount(currentUser, tempAccountNumber, confirmation, tempPIN);
+                case 2:
+                    newAccount = new SavingsAccount(currentUser, tempAccountNumber, tempPIN);
                     break;
-                case "Credit Account":
-                    newAccount = new CreditAccount(currentUser, "Credit", tempAccountNumber, tempPIN);
+                case 3:
+                    newAccount = new CreditAccount(currentUser, tempAccountNumber, tempPIN);
                     break;
             }
 
@@ -528,7 +822,7 @@ public class Main {
             currentUser.addAccount(newAccount);
             Bank.add(newAccount);
 
-            System.out.print(accountTypeChoice + " successfully created! ");
+            System.out.print("Account successfully created! ");
             promptEnterKey();
             OwnerMainMenu();
         }
@@ -539,7 +833,7 @@ public class Main {
 	public static void AccountMainMenu(){
         clearScreen();
 
-        String choice;
+        int choice;
         boolean choiceIsValid = false;
         do{
 			System.out.println("Current Account: " + currentAccount.getAccountNumber());
@@ -549,10 +843,12 @@ public class Main {
             System.out.println("2. Withdraw");
             System.out.println("3. Transfer");
             System.out.println("4. View Past Transactions");
-            System.out.println("5. Log Out");
+            System.out.println("5. Close Account");
+            System.out.println("6. Log Out");
             System.out.print("> ");
-            choice = scan.nextLine();
-            choiceIsValid = choice.equals("Deposit") || choice.equals("Withdraw") || choice.equals("Transfer") || choice.equals("View Past Transactions") || choice.equals("Log Out");
+            choice = scan.nextInt();
+            scan.nextLine();
+            choiceIsValid = choice >= 1 && choice <= 5;
 
             if(choiceIsValid == false){
                 System.out.print("Invalid choice. Try again. ");
@@ -562,20 +858,23 @@ public class Main {
         }while(choiceIsValid == false);
 
         switch(choice){
-            case "Deposit":
+            case 1:
                 depositMenu();
                 break;
-            case "Withdraw":
+            case 2:
                 withdrawMenu();
                 break;
-            case "Transfer":
+            case 3:
                 transferMenu();
                 break;
-            case "View Past Transactions":
+            case 4:
                 pastTransactionsMenuAccount();
                 break;
-            case "Log Out":
-				currentAccount = null;
+            case 5:
+                closeAccountMenu();
+                break;
+            case 6:
+                currentAccount = null;
                 ownedAccountsMenu();
                 break;
         }
@@ -752,7 +1051,47 @@ public class Main {
         AccountMainMenu();
     }
 
+    public static void closeAccountMenu(){
+            String deleteChoice = "-";
+            boolean deleteChoiceIsValid = false;
+            do {
+                clearScreen();
+                System.out.println("Current Account: " + currentAccount.getAccountNumber());
+                System.out.print("Are you sure want to delete your account? [Yes | No]: ");
+                deleteChoice = scan.nextLine();
+                deleteChoiceIsValid = deleteChoice.equals("Yes") || deleteChoice.equals("No");
+
+                if(!deleteChoiceIsValid){
+                    System.out.println("Invalid choice. Please try again.");
+                    promptEnterKey();
+                }
+            } while(!deleteChoiceIsValid);
+
+            if(deleteChoice.equals("Yes")) {
+                Account accountToDelete = currentAccount;
+                currentAccount = null;
+                currentUser.deleteAccount(accountToDelete);
+                Bank.remove(accountToDelete);
+                System.out.println("Account has been closed.");
+                promptEnterKey();
+                OwnerMainMenu();
+            } else {
+                AccountMainMenu();
+            }
+    }
+
 	// Utilities
+    public static void updateOwnerInfoMenu() {
+        System.out.println("Choose information that you want to update:");
+        System.out.println("1. Name");
+        System.out.println("2. Birthdate");
+        System.out.println("3. Phone Number");
+        System.out.println("4. Password");
+        System.out.println("5. Email");
+        System.out.println("6. Address");
+        System.out.println("7. Back to Owner Main Menu");
+    }
+
 	public static void printMainMenu() {
 		System.out.println("==========");
 		System.out.println("SUNIB Bank");
@@ -775,7 +1114,8 @@ public class Main {
 		System.out.println("1. Open New Account");
 		System.out.println("2. View Accounts");
         System.out.println("3. View Past Transactions");
-		System.out.println("4. Log Out");
+        System.out.println("4. Update Owner Information");
+		System.out.println("5. Log Out");
 	}
 
 	// Validation

@@ -3,15 +3,15 @@
 public class CreditAccount extends Account {
     private double interestRate;
 
-    public CreditAccount(Owner owner, String type, String accountNumber, String PIN) {
+    public CreditAccount(Owner owner, String accountNumber, String PIN) {
         super(owner, "Credit", accountNumber, PIN, 0);
         this.interestRate = 0.04;
     }
-
+    
     double calculateInterest(double amount) {
         double interest;
-		double interestPerDay = interestRate * (12 / 365);
-		interest = amount * interestPerDay * 24;
+		// double interestPerDay = interestRate * (12 / 365);
+		interest = amount * interestRate;
 		return interest;
 	}
 
@@ -28,7 +28,6 @@ public class CreditAccount extends Account {
 		if (amount + calculateInterest(amount) <= this.getBalance()) {
 			total_balance = this.getBalance() - (amount + calculateInterest(amount));
 			this.setBalance(total_balance);
-			System.out.println("YES");
 			return true;
 		} else {
 			return false;
