@@ -714,7 +714,6 @@ public class Main {
         int accountTypeChoice = -1;
         boolean choiceIsValid = false;
         do{
-            System.out.println("|| Choices are case sensitive ||");
             System.out.print("> ");
             accountTypeChoice = scan.nextInt();
             scan.nextLine();
