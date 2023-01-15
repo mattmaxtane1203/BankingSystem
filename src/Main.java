@@ -727,6 +727,19 @@ public class Main {
             }
         }while(choiceIsValid == false);
         
+        String accountTypeChoiceString = "-";
+        switch(accountTypeChoice){
+            case 1:
+                accountTypeChoiceString = "Deposit";
+                break;
+            case 2:
+                accountTypeChoiceString = "Savings";
+                break;
+            case 3:
+                accountTypeChoiceString = "Credit";
+                break;
+        }
+
         // Ask user to input username and password; Validate;
         clearScreen();
         String tempPIN = "";
@@ -736,7 +749,7 @@ public class Main {
             System.out.println("Create Account");
             System.out.println("==============");
             System.out.println("Type 0 to go back to main menu.");
-            System.out.println("Account Type: " + accountTypeChoice);
+            System.out.println("Account Type: " + accountTypeChoiceString);
             System.out.print("Input PIN [numeric, 6 numbers]: ");
             tempPIN = scan.nextLine();
 
@@ -781,7 +794,7 @@ public class Main {
             System.out.println("==============");
             System.out.println("Create Account");
             System.out.println("==============");
-            System.out.println("Account Type: " + accountTypeChoice);
+            System.out.println("Account Type: " + accountTypeChoiceString);
             System.out.println("Password: " + tempPIN);
             System.out.println("Account Number: " + tempAccountNumber);
             System.out.println("Are you sure you want to create a new bank account? [1 for YES / 0 for NO]");
