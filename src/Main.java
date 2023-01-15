@@ -1,8 +1,3 @@
-// TODO: Fix the navigation of menus (change from typing full words to typing numbers only)
-// TODO: Fix date and time format for birth date of users
-// TODO: Fix table positioning when printing transaction history
-// TODO: Work on Admin
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -629,7 +624,7 @@ public class Main {
             int confirmation = -1;
             boolean confirmationIsValid = false;
             do{
-                System.out.println("You do not have a bank account with us yet! Would you like to make one? [Yes / No]");
+                System.out.println("You do not have a bank account with us yet! Would you like to make one? [Type 1 for YES or 0 for NO]");
                 System.out.print("> ");
                 confirmation = scan.nextInt(); scan.nextLine();
                 confirmationIsValid = confirmation == 1 || confirmation == 0;
@@ -848,7 +843,7 @@ public class Main {
             System.out.print("> ");
             choice = scan.nextInt();
             scan.nextLine();
-            choiceIsValid = choice >= 1 && choice <= 5;
+            choiceIsValid = choice >= 1 && choice <= 6;
 
             if(choiceIsValid == false){
                 System.out.print("Invalid choice. Try again. ");
@@ -891,7 +886,7 @@ public class Main {
         String PIN = null;
         do{
             System.out.println("Amount to deposit: Rp. " + amountToDeposit);
-            System.out.print("PIN: ");
+            System.out.print("PIN [Type 0 to cancel]: ");
             PIN = scan.nextLine();
 
             if(PIN.equals("0")){
@@ -941,7 +936,7 @@ public class Main {
         String PIN = null;
         do{
             System.out.println("Amount to deposit: Rp. " + amountToWithdraw);
-            System.out.print("PIN: ");
+            System.out.print("PIN [Type 0 to cancel]: ");
             PIN = scan.nextLine();
 
             if(PIN.equals("0")){
@@ -976,9 +971,13 @@ public class Main {
         String destinationAccountNumber;
         int destinationAccountNumberIndex = -1;
         do{
-            System.out.print("Destination Account Number: ");
+            System.out.print("Destination Account Number [Type 0 to cancel]: ");
             destinationAccountNumber = scan.nextLine();
             destinationAccountNumberIndex = accountNumberExists(destinationAccountNumber, Bank);
+
+            if(destinationAccountNumber.equals("0")){
+                AccountMainMenu();
+            }
 
             if(destinationAccountNumberIndex == -1){
                 System.out.print("Account number does not exist. Please try again. ");
@@ -1008,7 +1007,7 @@ public class Main {
         do{
             System.out.println("Destination Account Number: " + destinationAccountNumber);
             System.out.println("Amount to deposit: Rp. " + amountToTransfer);
-            System.out.print("PIN: ");
+            System.out.print("PIN [Type 0 to cancel]: ");
             PIN = scan.nextLine();
 
             if(PIN.equals("0")){
