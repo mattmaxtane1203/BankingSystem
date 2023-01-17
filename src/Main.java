@@ -920,6 +920,7 @@ public class Main {
         transactionHistory.add(newTransaction);
 
         currentAccount.addBalance(amountToDeposit);
+        clearScreen();
         System.out.println("Funds deposited successfully!");
         System.out.println("Transaction ID: " + newTransaction.getTransactionID());
         System.out.println("Amount deposited: " + amountToDeposit);
